@@ -4,7 +4,8 @@
   "info": {
     "singularName": "testimonial",
     "pluralName": "testimonials",
-    "displayName": "testimonial"
+    "displayName": "testimonial",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,32 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "slug": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "google",
+        "yelp"
+      ]
+    },
+    "stars": {
+      "type": "decimal"
+    },
+    "review": {
+      "type": "text"
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "project": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::project.project"
     }
   }
 }
