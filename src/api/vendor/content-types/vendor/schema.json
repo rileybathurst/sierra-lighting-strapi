@@ -4,7 +4,8 @@
   "info": {
     "singularName": "vendor",
     "pluralName": "vendors",
-    "displayName": "Vendor"
+    "displayName": "Vendor",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -35,6 +36,9 @@
       "type": "string"
     },
     "pinterest": {
+      "type": "string"
+    },
+    "slug": {
       "type": "string"
     }
   }

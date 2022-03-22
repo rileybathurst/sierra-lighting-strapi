@@ -52,6 +52,12 @@
     },
     "slug": {
       "type": "string"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "areas"
     }
   }
 }
