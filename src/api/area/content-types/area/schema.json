@@ -51,13 +51,25 @@
       "type": "richtext"
     },
     "slug": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "regex": "^[a-z0-9]*$",
+      "unique": true
     },
     "project": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::project.project",
       "inversedBy": "areas"
+    },
+    "venues": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::venue.venue",
+      "mappedBy": "area"
+    },
+    "excerpt": {
+      "type": "text"
     }
   }
 }

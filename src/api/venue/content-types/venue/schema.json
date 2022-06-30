@@ -21,7 +21,7 @@
       "type": "richtext"
     },
     "description": {
-      "type": "string"
+      "type": "text"
     },
     "phone": {
       "type": "integer"
@@ -41,7 +41,31 @@
       ]
     },
     "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "regex": "^[a-z0-9]*$"
+    },
+    "area": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::area.area",
+      "inversedBy": "venues"
+    },
+    "excerpt": {
       "type": "string"
+    },
+    "projects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::project.project",
+      "mappedBy": "venue"
+    },
+    "testimonials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::testimonial.testimonial",
+      "mappedBy": "venue"
     }
   }
 }
