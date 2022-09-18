@@ -59,7 +59,8 @@
       ]
     },
     "excerpt": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "testimonials": {
       "type": "relation",
