@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plans",
+  "info": {
+    "singularName": "plan",
+    "pluralName": "plans",
+    "displayName": "plan",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "string",
+      "unique": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "unique": true
+    },
+    "svg": {
+      "type": "text"
+    },
+    "notes": {
+      "type": "richtext"
+    },
+    "teams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::team.team",
+      "mappedBy": "plan"
+    },
+    "jobber": {
+      "type": "integer",
+      "unique": true
+    },
+    "takedownFlexOrder": {
+      "type": "integer"
+    },
+    "areas": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::area.area",
+      "inversedBy": "plans"
+    },
+    "jobbertakedown": {
+      "type": "integer"
+    },
+    "takedownday": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::takedownday.takedownday",
+      "inversedBy": "plans"
+    }
+  }
+}

@@ -78,6 +78,16 @@
       "relation": "manyToMany",
       "target": "api::vendor.vendor",
       "inversedBy": "projects"
+    },
+    "gallery": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }

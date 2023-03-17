@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "takedowndays",
+  "info": {
+    "singularName": "takedownday",
+    "pluralName": "takedowndays",
+    "displayName": "takedownday",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "crew": {
+      "type": "enumeration",
+      "enum": [
+        "dani",
+        "alex",
+        "andrew"
+      ]
+    },
+    "plans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::plan.plan",
+      "mappedBy": "takedownday"
+    }
+  }
+}

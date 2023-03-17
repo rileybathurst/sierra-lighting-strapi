@@ -53,7 +53,7 @@
     "slug": {
       "type": "string",
       "required": true,
-      "regex": "^[a-z0-9]*$",
+      "regex": "^[a-z0-9\\-]*$",
       "unique": true
     },
     "project": {
@@ -70,6 +70,12 @@
     },
     "excerpt": {
       "type": "text"
+    },
+    "plans": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::plan.plan",
+      "mappedBy": "areas"
     }
   }
 }

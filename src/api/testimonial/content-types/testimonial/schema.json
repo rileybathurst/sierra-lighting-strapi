@@ -21,13 +21,14 @@
       "type": "string",
       "required": true,
       "unique": true,
-      "regex": "^[a-z0-9]*$"
+      "regex": "^[a-z0-9\\-]*$"
     },
     "platform": {
       "type": "enumeration",
       "enum": [
         "google",
-        "yelp"
+        "yelp",
+        "sierra lighting"
       ]
     },
     "stars": {
@@ -63,6 +64,12 @@
       "relation": "manyToOne",
       "target": "api::venue.venue",
       "inversedBy": "testimonials"
+    },
+    "excerpt": {
+      "type": "string",
+      "maxLength": 160,
+      "minLength": 50,
+      "required": true
     }
   }
 }

@@ -45,6 +45,12 @@
     },
     "excerpt": {
       "type": "string"
+    },
+    "plan": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::plan.plan",
+      "inversedBy": "teams"
     }
   }
 }
