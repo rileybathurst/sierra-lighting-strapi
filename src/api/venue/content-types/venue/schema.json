@@ -68,6 +68,14 @@
       "relation": "oneToMany",
       "target": "api::testimonial.testimonial",
       "mappedBy": "venue"
+    },
+    "uses": {
+      "type": "enumeration",
+      "enum": [
+        "wedding",
+        "non-wedding",
+        "corporate"
+      ]
     }
   }
 }

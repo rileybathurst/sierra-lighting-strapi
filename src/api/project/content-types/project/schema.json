@@ -80,14 +80,21 @@
       "inversedBy": "projects"
     },
     "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "wedding_season": {
+      "type": "boolean"
+    },
+    "hero": {
+      "type": "boolean"
     }
   }
 }
