@@ -30,14 +30,6 @@
       "required": true,
       "regex": "^[a-z0-9]*$"
     },
-    "service": {
-      "type": "enumeration",
-      "enum": [
-        "residential",
-        "commercial",
-        "wedding"
-      ]
-    },
     "teams": {
       "type": "relation",
       "relation": "manyToMany",
@@ -90,11 +82,24 @@
         "audios"
       ]
     },
-    "wedding_season": {
-      "type": "boolean"
-    },
     "hero": {
       "type": "boolean"
+    },
+    "services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service",
+      "mappedBy": "projects"
+    },
+    "darkImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

@@ -37,14 +37,8 @@
       "unique": true,
       "regex": "^[a-z0-9]*$"
     },
-    "wedding": {
-      "type": "boolean"
-    },
     "byline": {
       "type": "string"
-    },
-    "outdoor": {
-      "type": "boolean"
     },
     "excerpt": {
       "type": "string"
@@ -55,11 +49,35 @@
       "target": "api::project.project",
       "inversedBy": "lights"
     },
-    "commercialchristmas": {
+    "alias": {
+      "type": "json"
+    },
+    "light_groups": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::light-group.light-group",
+      "mappedBy": "lights"
+    },
+    "services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service",
+      "mappedBy": "lights"
+    },
+    "weddingOrder": {
+      "type": "integer"
+    },
+    "outdoor": {
       "type": "boolean"
     },
-    "residentialchristmas": {
-      "type": "boolean"
+    "xmasOrder": {
+      "type": "integer"
+    },
+    "service": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::service.service",
+      "inversedBy": "featuredLights"
     }
   }
 }
