@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "area_exploratrions",
+  "info": {
+    "singularName": "area-exploratrion",
+    "pluralName": "area-exploratrions",
+    "displayName": "area-exploratrion"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "string"
+    }
+  }
+}

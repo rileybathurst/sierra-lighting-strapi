@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "minimums",
+  "info": {
+    "singularName": "minimum",
+    "pluralName": "minimums",
+    "displayName": "minimum"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "dollars": {
+      "type": "integer"
+    }
+  }
+}

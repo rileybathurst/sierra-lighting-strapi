@@ -1,0 +1,147 @@
+{
+  "kind": "collectionType",
+  "collectionName": "services",
+  "info": {
+    "singularName": "service",
+    "pluralName": "services",
+    "displayName": "service",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "lights": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::light.light",
+      "inversedBy": "services"
+    },
+    "light_groups": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::light-group.light-group",
+      "inversedBy": "services"
+    },
+    "testimonials": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::testimonial.testimonial",
+      "inversedBy": "services"
+    },
+    "projects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project.project",
+      "inversedBy": "services"
+    },
+    "affiliation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::affiliation.affiliation"
+    },
+    "venues": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::venue.venue",
+      "inversedBy": "services"
+    },
+    "ogimage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "triptych": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "after_the_triptych": {
+      "type": "richtext"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "featured": {
+      "type": "boolean"
+    },
+    "featured_lights": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::light.light",
+      "inversedBy": "featured_service"
+    },
+    "videoMux": {
+      "type": "string"
+    },
+    "processes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::process.process",
+      "inversedBy": "services"
+    },
+    "showcases": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::showcase.showcase",
+      "mappedBy": "service"
+    },
+    "showcaseDescription": {
+      "type": "richtext"
+    },
+    "vendors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::vendor.vendor",
+      "mappedBy": "services"
+    },
+    "lookbook": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::lookbook.lookbook",
+      "inversedBy": "services"
+    },
+    "hero_light": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "hero_dark": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

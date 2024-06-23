@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fars",
+  "info": {
+    "singularName": "far",
+    "pluralName": "fars",
+    "displayName": "faq",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "question": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "text"
+    }
+  }
+}

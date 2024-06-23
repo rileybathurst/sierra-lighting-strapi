@@ -38,26 +38,50 @@
         "nevada"
       ]
     },
-    "region": {
-      "type": "enumeration",
-      "enum": [
-        "northlake",
-        "truckee",
-        "reno",
-        "sparks"
-      ]
-    },
     "description": {
       "type": "richtext"
     },
     "slug": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "regex": "^[a-z0-9\\-]*$",
+      "unique": true
     },
     "project": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::project.project",
       "inversedBy": "areas"
+    },
+    "venues": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::venue.venue",
+      "mappedBy": "area"
+    },
+    "excerpt": {
+      "type": "text"
+    },
+    "plans": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::plan.plan",
+      "mappedBy": "areas"
+    },
+    "region": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::area.area",
+      "inversedBy": "areas"
+    },
+    "areas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::area.area",
+      "mappedBy": "region"
+    },
+    "featured": {
+      "type": "boolean"
     }
   }
 }

@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lookbooks",
+  "info": {
+    "singularName": "lookbook",
+    "pluralName": "lookbooks",
+    "displayName": "Lookbook",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "services": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service.service",
+      "mappedBy": "lookbook"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "vendors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vendor.vendor",
+      "mappedBy": "lookbook"
+    },
+    "venue": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::venue.venue"
+    },
+    "spread": {
+      "type": "integer"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::project.project"
+    },
+    "lights": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::light.light",
+      "inversedBy": "lookbooks"
+    },
+    "flex": {
+      "type": "integer",
+      "default": 1
+    }
+  }
+}

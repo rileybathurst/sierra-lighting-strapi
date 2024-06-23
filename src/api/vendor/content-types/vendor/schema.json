@@ -20,11 +20,14 @@
     "service": {
       "type": "enumeration",
       "enum": [
-        "photography"
+        "photography",
+        "planning",
+        "production",
+        "floral"
       ]
     },
     "description": {
-      "type": "string"
+      "type": "text"
     },
     "website": {
       "type": "string"
@@ -39,7 +42,49 @@
       "type": "string"
     },
     "slug": {
-      "type": "string"
+      "type": "string",
+      "unique": true,
+      "regex": "^[a-z0-9]*$",
+      "required": true
+    },
+    "profile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "excerpt": {
+      "type": "string",
+      "required": true
+    },
+    "testimonials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::testimonial.testimonial",
+      "mappedBy": "vendor"
+    },
+    "projects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project.project",
+      "mappedBy": "vendors"
+    },
+    "services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service",
+      "inversedBy": "vendors"
+    },
+    "lookbook": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::lookbook.lookbook",
+      "inversedBy": "vendors"
     }
   }
 }

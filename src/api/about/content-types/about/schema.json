@@ -1,0 +1,64 @@
+{
+  "kind": "singleType",
+  "collectionName": "abouts",
+  "info": {
+    "singularName": "about",
+    "pluralName": "abouts",
+    "displayName": "about",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "richtext"
+    },
+    "businessName": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "slogan": {
+      "type": "string"
+    },
+    "defaultImage": {
+      "type": "string"
+    },
+    "defaultImageAlt": {
+      "type": "string"
+    },
+    "openingHours": {
+      "type": "string"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "paymentAccepted": {
+      "type": "string"
+    },
+    "itemType": {
+      "type": "string"
+    },
+    "priceRange": {
+      "type": "string"
+    },
+    "alternateName": {
+      "type": "string"
+    },
+    "geoLatitude": {
+      "type": "decimal"
+    },
+    "geoLongitude": {
+      "type": "decimal"
+    },
+    "geoRadius": {
+      "type": "integer"
+    }
+  }
+}

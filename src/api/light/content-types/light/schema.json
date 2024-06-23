@@ -1,0 +1,113 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lights",
+  "info": {
+    "singularName": "light",
+    "pluralName": "lights",
+    "displayName": "Light",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "regex": "^[a-z0-9]*$"
+    },
+    "byline": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "projects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project.project",
+      "inversedBy": "lights"
+    },
+    "light_groups": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::light-group.light-group",
+      "mappedBy": "lights"
+    },
+    "services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service",
+      "mappedBy": "lights"
+    },
+    "weddingOrder": {
+      "type": "integer"
+    },
+    "outdoor": {
+      "type": "boolean"
+    },
+    "xmasOrder": {
+      "type": "integer"
+    },
+    "featured_service": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service",
+      "mappedBy": "featured_lights"
+    },
+    "detail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "lookbooks": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::lookbook.lookbook",
+      "mappedBy": "lights"
+    },
+    "lights": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::light.light",
+      "mappedBy": "related"
+    },
+    "related": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::light.light",
+      "inversedBy": "lights"
+    },
+    "alias": {
+      "type": "text",
+      "regex": "^- .*(?:\\n- .*|(?!\\n-).)*$"
+    }
+  }
+}

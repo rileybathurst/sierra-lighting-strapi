@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "missings",
+  "info": {
+    "singularName": "missing",
+    "pluralName": "missings",
+    "displayName": "missing"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

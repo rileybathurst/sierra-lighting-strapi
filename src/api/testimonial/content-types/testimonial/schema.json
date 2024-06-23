@@ -18,13 +18,17 @@
       "unique": true
     },
     "slug": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "regex": "^[a-z0-9\\-]*$"
     },
     "platform": {
       "type": "enumeration",
       "enum": [
         "google",
-        "yelp"
+        "yelp",
+        "sierra lighting"
       ]
     },
     "stars": {
@@ -42,6 +46,39 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::project.project"
+    },
+    "link": {
+      "type": "string"
+    },
+    "vendor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::vendor.vendor",
+      "inversedBy": "testimonials"
+    },
+    "position": {
+      "type": "string"
+    },
+    "venue": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::venue.venue",
+      "inversedBy": "testimonials"
+    },
+    "excerpt": {
+      "type": "string",
+      "maxLength": 160,
+      "minLength": 50,
+      "required": true
+    },
+    "services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service",
+      "mappedBy": "testimonials"
+    },
+    "order": {
+      "type": "integer"
     }
   }
 }

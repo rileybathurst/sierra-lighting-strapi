@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "light_groups",
+  "info": {
+    "singularName": "light-group",
+    "pluralName": "light-groups",
+    "displayName": "light-group",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "lights": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::light.light",
+      "inversedBy": "light_groups"
+    },
+    "weddingOrder": {
+      "type": "integer"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service",
+      "mappedBy": "light_groups"
+    },
+    "outdoor": {
+      "type": "boolean"
+    },
+    "xmasOrder": {
+      "type": "integer"
+    }
+  }
+}

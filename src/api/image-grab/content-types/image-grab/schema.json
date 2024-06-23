@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "image_grabs",
+  "info": {
+    "singularName": "image-grab",
+    "pluralName": "image-grabs",
+    "displayName": "image-grab"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}
