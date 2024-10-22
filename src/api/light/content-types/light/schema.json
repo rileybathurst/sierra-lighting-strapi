@@ -35,7 +35,7 @@
       "type": "string",
       "required": true,
       "unique": true,
-      "regex": "^[a-z0-9]*$"
+      "regex": "^[a-z0-9_-]+$"
     },
     "byline": {
       "type": "string"
@@ -108,6 +108,20 @@
     "alias": {
       "type": "text",
       "regex": "^- .*(?:\\n- .*|(?!\\n-).)*$"
+    },
+    "altDefinition": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "regex": "^(?:-\\s.*\\n){2}$"
+    },
+    "altStyle": {
+      "type": "text"
     }
   }
 }

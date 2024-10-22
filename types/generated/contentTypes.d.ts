@@ -816,6 +816,9 @@ export interface ApiAboutAbout extends Schema.SingleType {
     geoLatitude: Attribute.Decimal;
     geoLongitude: Attribute.Decimal;
     geoRadius: Attribute.Integer;
+    addressLocality: Attribute.String;
+    addressRegion: Attribute.String;
+    postalCode: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1100,6 +1103,8 @@ export interface ApiLightLight extends Schema.CollectionType {
       'api::light.light'
     >;
     alias: Attribute.Text;
+    altDefinition: Attribute.Media;
+    altStyle: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1313,6 +1318,9 @@ export interface ApiPlanPlan extends Schema.CollectionType {
       'manyToOne',
       'api::takedownday.takedownday'
     >;
+    zip: Attribute.Integer;
+    timerHours: Attribute.Integer;
+    timerFallback: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1416,6 +1424,11 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'api::project.project',
       'oneToOne',
       'api::showcase.showcase'
+    >;
+    testimonial: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::testimonial.testimonial'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

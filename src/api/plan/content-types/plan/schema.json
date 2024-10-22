@@ -56,6 +56,15 @@
       "relation": "manyToOne",
       "target": "api::takedownday.takedownday",
       "inversedBy": "plans"
+    },
+    "zip": {
+      "type": "integer"
+    },
+    "timerHours": {
+      "type": "integer"
+    },
+    "timerFallback": {
+      "type": "string"
     }
   }
 }

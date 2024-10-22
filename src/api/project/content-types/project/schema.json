@@ -28,7 +28,7 @@
       "type": "string",
       "unique": true,
       "required": true,
-      "regex": "^[a-z0-9]*$"
+      "regex": "^[a-z0-9_-]+$"
     },
     "teams": {
       "type": "relation",
@@ -107,6 +107,12 @@
       "relation": "oneToOne",
       "target": "api::showcase.showcase",
       "mappedBy": "project"
+    },
+    "testimonial": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::testimonial.testimonial",
+      "inversedBy": "project"
     }
   }
 }

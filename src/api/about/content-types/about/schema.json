@@ -59,6 +59,15 @@
     },
     "geoRadius": {
       "type": "integer"
+    },
+    "addressLocality": {
+      "type": "string"
+    },
+    "addressRegion": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
     }
   }
 }
