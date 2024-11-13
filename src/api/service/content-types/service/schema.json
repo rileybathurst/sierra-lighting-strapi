@@ -117,23 +117,29 @@
       "target": "api::vendor.vendor",
       "mappedBy": "services"
     },
-    "lookbook": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::lookbook.lookbook",
-      "inversedBy": "services"
-    },
     "hero_light": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "hero_dark": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "lookbookCover": {
       "allowedTypes": [
         "images",
         "files",
@@ -142,6 +148,12 @@
       ],
       "type": "media",
       "multiple": false
+    },
+    "lookbooks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lookbook.lookbook",
+      "mappedBy": "service"
     }
   }
 }

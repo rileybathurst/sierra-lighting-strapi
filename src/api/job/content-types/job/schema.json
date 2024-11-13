@@ -4,7 +4,8 @@
   "info": {
     "singularName": "job",
     "pluralName": "jobs",
-    "displayName": "job"
+    "displayName": "job",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,12 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "employmentType": {
+      "type": "string"
+    },
+    "validThrough": {
+      "type": "date"
     }
   }
 }

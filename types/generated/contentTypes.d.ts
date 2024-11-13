@@ -1028,6 +1028,7 @@ export interface ApiJobJob extends Schema.CollectionType {
     singularName: 'job';
     pluralName: 'jobs';
     displayName: 'job';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1035,6 +1036,8 @@ export interface ApiJobJob extends Schema.CollectionType {
   attributes: {
     title: Attribute.String;
     description: Attribute.RichText;
+    employmentType: Attribute.String;
+    validThrough: Attribute.Date;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1103,8 +1106,7 @@ export interface ApiLightLight extends Schema.CollectionType {
       'api::light.light'
     >;
     alias: Attribute.Text;
-    altDefinition: Attribute.Media;
-    altStyle: Attribute.Text;
+    altGallery: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1183,9 +1185,9 @@ export interface ApiLookbookLookbook extends Schema.CollectionType {
   attributes: {
     title: Attribute.String;
     image: Attribute.Media;
-    services: Attribute.Relation<
+    service: Attribute.Relation<
       'api::lookbook.lookbook',
-      'oneToMany',
+      'manyToOne',
       'api::service.service'
     >;
     description: Attribute.RichText;
@@ -1512,6 +1514,39 @@ export interface ApiQualityQuality extends Schema.CollectionType {
   };
 }
 
+export interface ApiReviewReview extends Schema.SingleType {
+  collectionName: 'reviews';
+  info: {
+    singularName: 'review';
+    pluralName: 'reviews';
+    displayName: 'review';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    starting: Attribute.Text;
+    positive: Attribute.Text;
+    negative: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSeasonSeason extends Schema.SingleType {
   collectionName: 'seasons';
   info: {
@@ -1616,13 +1651,14 @@ export interface ApiServiceService extends Schema.CollectionType {
       'manyToMany',
       'api::vendor.vendor'
     >;
-    lookbook: Attribute.Relation<
-      'api::service.service',
-      'manyToOne',
-      'api::lookbook.lookbook'
-    >;
     hero_light: Attribute.Media;
     hero_dark: Attribute.Media;
+    lookbookCover: Attribute.Media;
+    lookbooks: Attribute.Relation<
+      'api::service.service',
+      'oneToMany',
+      'api::lookbook.lookbook'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -2009,6 +2045,7 @@ declare module '@strapi/types' {
       'api::project.project': ApiProjectProject;
       'api::project-description.project-description': ApiProjectDescriptionProjectDescription;
       'api::quality.quality': ApiQualityQuality;
+      'api::review.review': ApiReviewReview;
       'api::season.season': ApiSeasonSeason;
       'api::service.service': ApiServiceService;
       'api::showcase.showcase': ApiShowcaseShowcase;

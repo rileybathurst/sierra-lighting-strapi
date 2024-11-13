@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "reviews",
+  "info": {
+    "singularName": "review",
+    "pluralName": "reviews",
+    "displayName": "review",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "starting": {
+      "type": "text"
+    },
+    "positive": {
+      "type": "text"
+    },
+    "negative": {
+      "type": "text"
+    }
+  }
+}

@@ -109,19 +109,16 @@
       "type": "text",
       "regex": "^- .*(?:\\n- .*|(?!\\n-).)*$"
     },
-    "altDefinition": {
+    "altGallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false,
-      "regex": "^(?:-\\s.*\\n){2}$"
-    },
-    "altStyle": {
-      "type": "text"
+      ]
     }
   }
 }

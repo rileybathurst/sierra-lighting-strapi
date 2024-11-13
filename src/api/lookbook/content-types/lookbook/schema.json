@@ -26,11 +26,11 @@
         "audios"
       ]
     },
-    "services": {
+    "service": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "api::service.service",
-      "mappedBy": "lookbook"
+      "inversedBy": "lookbooks"
     },
     "description": {
       "type": "richtext"
