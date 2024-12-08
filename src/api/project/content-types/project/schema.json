@@ -18,12 +18,6 @@
     "description": {
       "type": "richtext"
     },
-    "areas": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::area.area",
-      "mappedBy": "project"
-    },
     "slug": {
       "type": "string",
       "unique": true,
@@ -113,6 +107,12 @@
       "relation": "oneToOne",
       "target": "api::testimonial.testimonial",
       "inversedBy": "project"
+    },
+    "area": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::area.area",
+      "inversedBy": "projects"
     }
   }
 }

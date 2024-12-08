@@ -23,6 +23,12 @@
     },
     "validThrough": {
       "type": "date"
+    },
+    "areas": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::area.area",
+      "inversedBy": "jobs"
     }
   }
 }

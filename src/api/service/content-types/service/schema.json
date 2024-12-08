@@ -154,6 +154,12 @@
       "relation": "oneToMany",
       "target": "api::lookbook.lookbook",
       "mappedBy": "service"
+    },
+    "videos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video.video",
+      "mappedBy": "service"
     }
   }
 }

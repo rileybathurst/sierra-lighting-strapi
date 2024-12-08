@@ -17,6 +17,18 @@
     },
     "link": {
       "type": "string"
+    },
+    "defaultHoliday": {
+      "type": "string"
+    },
+    "defaultWedding": {
+      "type": "string"
+    },
+    "defaultHolidayLink": {
+      "type": "string"
+    },
+    "defaultWeddingLink": {
+      "type": "string"
     }
   }
 }

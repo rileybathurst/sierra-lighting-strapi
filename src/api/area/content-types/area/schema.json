@@ -47,11 +47,11 @@
       "regex": "^[a-z0-9\\-]*$",
       "unique": true
     },
-    "project": {
+    "projects": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::project.project",
-      "inversedBy": "areas"
+      "mappedBy": "area"
     },
     "venues": {
       "type": "relation",
@@ -82,6 +82,15 @@
     },
     "featured": {
       "type": "boolean"
+    },
+    "jobs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::job.job",
+      "mappedBy": "areas"
+    },
+    "postalCode": {
+      "type": "integer"
     }
   }
 }

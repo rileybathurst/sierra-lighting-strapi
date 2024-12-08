@@ -819,6 +819,15 @@ export interface ApiAboutAbout extends Schema.SingleType {
     addressLocality: Attribute.String;
     addressRegion: Attribute.String;
     postalCode: Attribute.String;
+    yelp: Attribute.String;
+    facebook: Attribute.String;
+    instagram: Attribute.String;
+    nextdoor: Attribute.String;
+    pinterest: Attribute.String;
+    tiktok: Attribute.String;
+    linkedin: Attribute.String;
+    google: Attribute.String;
+    googleReviews: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -890,9 +899,9 @@ export interface ApiAreaArea extends Schema.CollectionType {
     state: Attribute.Enumeration<['california', 'nevada']>;
     description: Attribute.RichText;
     slug: Attribute.String & Attribute.Required & Attribute.Unique;
-    project: Attribute.Relation<
+    projects: Attribute.Relation<
       'api::area.area',
-      'manyToOne',
+      'oneToMany',
       'api::project.project'
     >;
     venues: Attribute.Relation<
@@ -905,6 +914,8 @@ export interface ApiAreaArea extends Schema.CollectionType {
     region: Attribute.Relation<'api::area.area', 'manyToOne', 'api::area.area'>;
     areas: Attribute.Relation<'api::area.area', 'oneToMany', 'api::area.area'>;
     featured: Attribute.Boolean;
+    jobs: Attribute.Relation<'api::area.area', 'manyToMany', 'api::job.job'>;
+    postalCode: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -975,12 +986,14 @@ export interface ApiHeroHero extends Schema.SingleType {
     singularName: 'hero';
     pluralName: 'heroes';
     displayName: 'hero';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    image: Attribute.Media;
+    front: Attribute.Media;
+    back: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1038,6 +1051,7 @@ export interface ApiJobJob extends Schema.CollectionType {
     description: Attribute.RichText;
     employmentType: Attribute.String;
     validThrough: Attribute.Date;
+    areas: Attribute.Relation<'api::job.job', 'manyToMany', 'api::area.area'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1385,11 +1399,6 @@ export interface ApiProjectProject extends Schema.CollectionType {
   attributes: {
     title: Attribute.String;
     description: Attribute.RichText;
-    areas: Attribute.Relation<
-      'api::project.project',
-      'oneToMany',
-      'api::area.area'
-    >;
     slug: Attribute.String & Attribute.Required & Attribute.Unique;
     teams: Attribute.Relation<
       'api::project.project',
@@ -1431,6 +1440,11 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'api::project.project',
       'oneToOne',
       'api::testimonial.testimonial'
+    >;
+    area: Attribute.Relation<
+      'api::project.project',
+      'manyToOne',
+      'api::area.area'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1659,6 +1673,11 @@ export interface ApiServiceService extends Schema.CollectionType {
       'oneToMany',
       'api::lookbook.lookbook'
     >;
+    videos: Attribute.Relation<
+      'api::service.service',
+      'oneToMany',
+      'api::video.video'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1870,6 +1889,10 @@ export interface ApiTopbarTopbar extends Schema.SingleType {
   attributes: {
     title: Attribute.String;
     link: Attribute.String;
+    defaultHoliday: Attribute.String;
+    defaultWedding: Attribute.String;
+    defaultHolidayLink: Attribute.String;
+    defaultWeddingLink: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -2009,6 +2032,45 @@ export interface ApiVenueVenue extends Schema.CollectionType {
   };
 }
 
+export interface ApiVideoVideo extends Schema.CollectionType {
+  collectionName: 'videos';
+  info: {
+    singularName: 'video';
+    pluralName: 'videos';
+    displayName: 'video';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    mux: Attribute.String;
+    name: Attribute.String;
+    description: Attribute.Text;
+    service: Attribute.Relation<
+      'api::video.video',
+      'manyToOne',
+      'api::service.service'
+    >;
+    thumbnailTime: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::video.video',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::video.video',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -2055,6 +2117,7 @@ declare module '@strapi/types' {
       'api::topbar.topbar': ApiTopbarTopbar;
       'api::vendor.vendor': ApiVendorVendor;
       'api::venue.venue': ApiVenueVenue;
+      'api::video.video': ApiVideoVideo;
     }
   }
 }
