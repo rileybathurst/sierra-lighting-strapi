@@ -1,14 +1,13 @@
 {
   "kind": "singleType",
-  "collectionName": "reviews",
+  "collectionName": "feedbacks",
   "info": {
-    "singularName": "review",
-    "pluralName": "reviews",
-    "displayName": "review",
-    "description": ""
+    "singularName": "feedback",
+    "pluralName": "feedbacks",
+    "displayName": "feedback"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {

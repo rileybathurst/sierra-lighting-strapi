@@ -21,7 +21,8 @@
     },
     "slug": {
       "type": "string",
-      "unique": true
+      "unique": true,
+      "regex": "^[a-z0-9\\-]*$"
     },
     "svg": {
       "type": "text"

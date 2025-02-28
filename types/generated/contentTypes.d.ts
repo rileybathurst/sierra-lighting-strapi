@@ -980,6 +980,37 @@ export interface ApiFarFar extends Schema.CollectionType {
   };
 }
 
+export interface ApiFeedbackFeedback extends Schema.SingleType {
+  collectionName: 'feedbacks';
+  info: {
+    singularName: 'feedback';
+    pluralName: 'feedbacks';
+    displayName: 'feedback';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    starting: Attribute.Text;
+    positive: Attribute.Text;
+    negative: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::feedback.feedback',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::feedback.feedback',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHeroHero extends Schema.SingleType {
   collectionName: 'heroes';
   info: {
@@ -1528,39 +1559,6 @@ export interface ApiQualityQuality extends Schema.CollectionType {
   };
 }
 
-export interface ApiReviewReview extends Schema.SingleType {
-  collectionName: 'reviews';
-  info: {
-    singularName: 'review';
-    pluralName: 'reviews';
-    displayName: 'review';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    starting: Attribute.Text;
-    positive: Attribute.Text;
-    negative: Attribute.Text;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::review.review',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::review.review',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiSeasonSeason extends Schema.SingleType {
   collectionName: 'seasons';
   info: {
@@ -2094,6 +2092,7 @@ declare module '@strapi/types' {
       'api::area.area': ApiAreaArea;
       'api::area-exploratrion.area-exploratrion': ApiAreaExploratrionAreaExploratrion;
       'api::far.far': ApiFarFar;
+      'api::feedback.feedback': ApiFeedbackFeedback;
       'api::hero.hero': ApiHeroHero;
       'api::image-grab.image-grab': ApiImageGrabImageGrab;
       'api::job.job': ApiJobJob;
@@ -2107,7 +2106,6 @@ declare module '@strapi/types' {
       'api::project.project': ApiProjectProject;
       'api::project-description.project-description': ApiProjectDescriptionProjectDescription;
       'api::quality.quality': ApiQualityQuality;
-      'api::review.review': ApiReviewReview;
       'api::season.season': ApiSeasonSeason;
       'api::service.service': ApiServiceService;
       'api::showcase.showcase': ApiShowcaseShowcase;

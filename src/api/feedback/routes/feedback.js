@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * review router
+ * feedback router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::review.review');
+module.exports = createCoreRouter('api::feedback.feedback');
