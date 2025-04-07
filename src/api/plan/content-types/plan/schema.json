@@ -66,6 +66,9 @@
     },
     "timerFallback": {
       "type": "string"
+    },
+    "basicNotes": {
+      "type": "text"
     }
   }
 }
