@@ -530,6 +530,50 @@ export interface ApiAreaArea extends Schema.CollectionType {
   };
 }
 
+export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
+  collectionName: 'collaborators';
+  info: {
+    description: '';
+    displayName: 'collaborator';
+    pluralName: 'collaborators';
+    singularName: 'collaborator';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::collaborator.collaborator',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    description: Attribute.Blocks;
+    excerpt: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 160;
+        minLength: 50;
+      }>;
+    hero: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    industry: Attribute.String;
+    publishedAt: Attribute.DateTime;
+    services: Attribute.Relation<
+      'api::collaborator.collaborator',
+      'manyToMany',
+      'api::service.service'
+    >;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::collaborator.collaborator',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiFarFar extends Schema.CollectionType {
   collectionName: 'fars';
   info: {
@@ -606,6 +650,8 @@ export interface ApiHeroHero extends Schema.SingleType {
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<'api::hero.hero', 'oneToOne', 'admin::user'> &
       Attribute.Private;
+    wedding_back: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    wedding_front: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
@@ -787,6 +833,37 @@ export interface ApiLightLight extends Schema.CollectionType {
       Attribute.Private;
     weddingOrder: Attribute.Integer;
     xmasOrder: Attribute.Integer;
+  };
+}
+
+export interface ApiLookbookDescriptionLookbookDescription
+  extends Schema.SingleType {
+  collectionName: 'lookbook_descriptions';
+  info: {
+    displayName: 'lookbook-description';
+    pluralName: 'lookbook-descriptions';
+    singularName: 'lookbook-description';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::lookbook-description.lookbook-description',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    excerpt: Attribute.String;
+    publishedAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::lookbook-description.lookbook-description',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
   };
 }
 
@@ -1184,6 +1261,11 @@ export interface ApiServiceService extends Schema.CollectionType {
       'api::affiliation.affiliation'
     >;
     after_the_triptych: Attribute.RichText;
+    collaborators: Attribute.Relation<
+      'api::service.service',
+      'manyToMany',
+      'api::collaborator.collaborator'
+    >;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::service.service',
@@ -2037,6 +2119,7 @@ declare module '@strapi/types' {
       'api::affiliation.affiliation': ApiAffiliationAffiliation;
       'api::area-exploratrion.area-exploratrion': ApiAreaExploratrionAreaExploratrion;
       'api::area.area': ApiAreaArea;
+      'api::collaborator.collaborator': ApiCollaboratorCollaborator;
       'api::far.far': ApiFarFar;
       'api::feedback.feedback': ApiFeedbackFeedback;
       'api::hero.hero': ApiHeroHero;
@@ -2044,6 +2127,7 @@ declare module '@strapi/types' {
       'api::job.job': ApiJobJob;
       'api::light-group.light-group': ApiLightGroupLightGroup;
       'api::light.light': ApiLightLight;
+      'api::lookbook-description.lookbook-description': ApiLookbookDescriptionLookbookDescription;
       'api::lookbook.lookbook': ApiLookbookLookbook;
       'api::minimum.minimum': ApiMinimumMinimum;
       'api::missing.missing': ApiMissingMissing;

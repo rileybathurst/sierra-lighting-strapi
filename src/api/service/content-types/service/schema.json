@@ -160,6 +160,12 @@
       "relation": "oneToMany",
       "target": "api::video.video",
       "mappedBy": "service"
+    },
+    "collaborators": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::collaborator.collaborator",
+      "mappedBy": "services"
     }
   }
 }

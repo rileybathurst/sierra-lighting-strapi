@@ -1,0 +1,17 @@
+{
+  "kind": "singleType",
+  "collectionName": "lookbook_descriptions",
+  "info": {
+    "singularName": "lookbook-description",
+    "pluralName": "lookbook-descriptions",
+    "displayName": "lookbook-description"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "excerpt": {
+      "type": "string"
+    }
+  }
+}

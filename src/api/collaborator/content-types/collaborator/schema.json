@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collaborators",
+  "info": {
+    "singularName": "collaborator",
+    "pluralName": "collaborators",
+    "displayName": "collaborator",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "industry": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "hero": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service",
+      "inversedBy": "collaborators"
+    },
+    "excerpt": {
+      "type": "string",
+      "required": true,
+      "minLength": 50,
+      "maxLength": 160
+    }
+  }
+}
