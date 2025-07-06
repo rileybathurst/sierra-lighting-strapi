@@ -23,12 +23,6 @@
     "description": {
       "type": "richtext"
     },
-    "service": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::service.service",
-      "inversedBy": "showcases"
-    },
     "project": {
       "type": "relation",
       "relation": "oneToOne",
@@ -43,6 +37,11 @@
     },
     "tree": {
       "type": "string"
+    },
+    "service": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::service.service"
     }
   }
 }

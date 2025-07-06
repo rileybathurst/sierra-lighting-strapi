@@ -85,6 +85,12 @@
       "relation": "manyToOne",
       "target": "api::lookbook.lookbook",
       "inversedBy": "vendors"
+    },
+    "collaborator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::collaborator.collaborator",
+      "inversedBy": "vendors"
     }
   }
 }

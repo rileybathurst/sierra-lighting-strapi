@@ -39,6 +39,18 @@
       "required": true,
       "minLength": 50,
       "maxLength": 160
+    },
+    "slug": {
+      "type": "string",
+      "regex": "^[a-z0-9_-]+$",
+      "required": true,
+      "unique": true
+    },
+    "vendors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vendor.vendor",
+      "mappedBy": "collaborator"
     }
   }
 }

@@ -564,6 +564,7 @@ export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
       'manyToMany',
       'api::service.service'
     >;
+    slug: Attribute.String & Attribute.Required & Attribute.Unique;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::collaborator.collaborator',
@@ -571,6 +572,11 @@ export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    vendors: Attribute.Relation<
+      'api::collaborator.collaborator',
+      'oneToMany',
+      'api::vendor.vendor'
+    >;
   };
 }
 
@@ -1313,11 +1319,6 @@ export interface ApiServiceService extends Schema.CollectionType {
     >;
     publishedAt: Attribute.DateTime;
     showcaseDescription: Attribute.RichText;
-    showcases: Attribute.Relation<
-      'api::service.service',
-      'oneToMany',
-      'api::showcase.showcase'
-    >;
     slug: Attribute.String;
     testimonials: Attribute.Relation<
       'api::service.service',
@@ -1381,7 +1382,7 @@ export interface ApiShowcaseShowcase extends Schema.CollectionType {
     roofline: Attribute.String;
     service: Attribute.Relation<
       'api::showcase.showcase',
-      'manyToOne',
+      'oneToOne',
       'api::service.service'
     >;
     tier: Attribute.Enumeration<['gold', 'silver', 'bronze']>;
@@ -1566,6 +1567,37 @@ export interface ApiTopbarTopbar extends Schema.SingleType {
   };
 }
 
+export interface ApiVendorDescriptionVendorDescription
+  extends Schema.SingleType {
+  collectionName: 'vendor_descriptions';
+  info: {
+    displayName: 'vendor-description';
+    pluralName: 'vendor-descriptions';
+    singularName: 'vendor-description';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::vendor-description.vendor-description',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    excerpt: Attribute.String;
+    publishedAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::vendor-description.vendor-description',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiVendorVendor extends Schema.CollectionType {
   collectionName: 'vendors';
   info: {
@@ -1578,6 +1610,11 @@ export interface ApiVendorVendor extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
+    collaborator: Attribute.Relation<
+      'api::vendor.vendor',
+      'manyToOne',
+      'api::collaborator.collaborator'
+    >;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::vendor.vendor',
@@ -2143,6 +2180,7 @@ declare module '@strapi/types' {
       'api::team.team': ApiTeamTeam;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::topbar.topbar': ApiTopbarTopbar;
+      'api::vendor-description.vendor-description': ApiVendorDescriptionVendorDescription;
       'api::vendor.vendor': ApiVendorVendor;
       'api::venue.venue': ApiVenueVenue;
       'api::video.video': ApiVideoVideo;

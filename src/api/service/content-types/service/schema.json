@@ -102,12 +102,6 @@
       "target": "api::process.process",
       "inversedBy": "services"
     },
-    "showcases": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::showcase.showcase",
-      "mappedBy": "service"
-    },
     "showcaseDescription": {
       "type": "richtext"
     },

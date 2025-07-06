@@ -1,0 +1,17 @@
+{
+  "kind": "singleType",
+  "collectionName": "vendor_descriptions",
+  "info": {
+    "singularName": "vendor-description",
+    "pluralName": "vendor-descriptions",
+    "displayName": "vendor-description"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "excerpt": {
+      "type": "string"
+    }
+  }
+}
