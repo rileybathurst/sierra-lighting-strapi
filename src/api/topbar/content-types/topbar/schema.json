@@ -13,22 +13,31 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "link": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
-    "defaultHoliday": {
-      "type": "string"
+    "defaultXmas": {
+      "type": "string",
+      "required": true
     },
     "defaultWedding": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
-    "defaultHolidayLink": {
-      "type": "string"
+    "defaultXmasLink": {
+      "type": "string",
+      "required": true
     },
     "defaultWeddingLink": {
-      "type": "string"
+      "type": "string",
+      "required": true
+    },
+    "default": {
+      "type": "boolean"
     }
   }
 }

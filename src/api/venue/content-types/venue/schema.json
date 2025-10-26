@@ -44,7 +44,7 @@
       "type": "string",
       "required": true,
       "unique": true,
-      "regex": "^[a-z0-9]*$"
+      "regex": "^[a-z0-9_-]+$"
     },
     "area": {
       "type": "relation",
@@ -54,8 +54,8 @@
     },
     "excerpt": {
       "type": "string",
-      "maxLength": 160,
-      "minLength": 50
+      "minLength": 50,
+      "maxLength": 160
     },
     "projects": {
       "type": "relation",
@@ -82,6 +82,18 @@
       "relation": "manyToMany",
       "target": "api::service.service",
       "mappedBy": "venues"
+    },
+    "streetAddress": {
+      "type": "string"
+    },
+    "addressLocality": {
+      "type": "string"
+    },
+    "addressRegion": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
     }
   }
 }

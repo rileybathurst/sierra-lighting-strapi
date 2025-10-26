@@ -724,6 +724,42 @@ export interface ApiJobJob extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiLightConnectionLightConnection
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'light_connections';
+  info: {
+    displayName: 'light-connection';
+    pluralName: 'light-connections';
+    singularName: 'light-connection';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ending_light: Schema.Attribute.Relation<'oneToOne', 'api::light.light'>;
+    excerpt: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+        minLength: 60;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::light-connection.light-connection'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    starting_light: Schema.Attribute.Relation<'oneToOne', 'api::light.light'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLightGroupLightGroup extends Struct.CollectionTypeSchema {
   collectionName: 'light_groups';
   info: {
@@ -783,7 +819,11 @@ export interface ApiLightLight extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
     detail: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    excerpt: Schema.Attribute.String;
+    excerpt: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+        minLength: 50;
+      }>;
     featured_service: Schema.Attribute.Relation<
       'manyToMany',
       'api::service.service'
@@ -1067,7 +1107,11 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     darkImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     description: Schema.Attribute.RichText;
-    excerpt: Schema.Attribute.Text;
+    excerpt: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+        minLength: 50;
+      }>;
     gallery: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -1154,6 +1198,7 @@ export interface ApiSeasonSeason extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    season: Schema.Attribute.Enumeration<['xmas', 'wedding']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1410,11 +1455,12 @@ export interface ApiTopbarTopbar extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    defaultHoliday: Schema.Attribute.String;
-    defaultHolidayLink: Schema.Attribute.String;
-    defaultWedding: Schema.Attribute.String;
-    defaultWeddingLink: Schema.Attribute.String;
-    link: Schema.Attribute.String;
+    default: Schema.Attribute.Boolean;
+    defaultWedding: Schema.Attribute.String & Schema.Attribute.Required;
+    defaultWeddingLink: Schema.Attribute.String & Schema.Attribute.Required;
+    defaultXmas: Schema.Attribute.String & Schema.Attribute.Required;
+    defaultXmasLink: Schema.Attribute.String & Schema.Attribute.Required;
+    link: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1422,7 +1468,7 @@ export interface ApiTopbarTopbar extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1526,6 +1572,8 @@ export interface ApiVenueVenue extends Struct.CollectionTypeSchema {
   };
   attributes: {
     address: Schema.Attribute.RichText;
+    addressLocality: Schema.Attribute.String;
+    addressRegion: Schema.Attribute.String;
     area: Schema.Attribute.Relation<'manyToOne', 'api::area.area'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1543,12 +1591,14 @@ export interface ApiVenueVenue extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     phone: Schema.Attribute.Integer;
+    postalCode: Schema.Attribute.String;
     projects: Schema.Attribute.Relation<'oneToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Relation<'manyToMany', 'api::service.service'>;
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    streetAddress: Schema.Attribute.String;
     testimonials: Schema.Attribute.Relation<
       'oneToMany',
       'api::testimonial.testimonial'
@@ -2113,6 +2163,7 @@ declare module '@strapi/strapi' {
       'api::hero.hero': ApiHeroHero;
       'api::image-grab.image-grab': ApiImageGrabImageGrab;
       'api::job.job': ApiJobJob;
+      'api::light-connection.light-connection': ApiLightConnectionLightConnection;
       'api::light-group.light-group': ApiLightGroupLightGroup;
       'api::light.light': ApiLightLight;
       'api::lookbook-description.lookbook-description': ApiLookbookDescriptionLookbookDescription;

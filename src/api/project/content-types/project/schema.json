@@ -20,8 +20,8 @@
     },
     "slug": {
       "type": "string",
-      "unique": true,
       "required": true,
+      "unique": true,
       "regex": "^[a-z0-9_-]+$"
     },
     "teams": {
@@ -48,7 +48,9 @@
       "mappedBy": "projects"
     },
     "excerpt": {
-      "type": "text"
+      "type": "text",
+      "minLength": 50,
+      "maxLength": 160
     },
     "ogimage": {
       "type": "string"

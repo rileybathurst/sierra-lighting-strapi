@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "light_connections",
+  "info": {
+    "singularName": "light-connection",
+    "pluralName": "light-connections",
+    "displayName": "light-connection"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string",
+      "minLength": 60,
+      "maxLength": 160
+    },
+    "starting_light": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::light.light"
+    },
+    "ending_light": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::light.light"
+    }
+  }
+}

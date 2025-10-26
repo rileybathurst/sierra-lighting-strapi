@@ -41,7 +41,9 @@
       "type": "string"
     },
     "excerpt": {
-      "type": "string"
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 160
     },
     "projects": {
       "type": "relation",
