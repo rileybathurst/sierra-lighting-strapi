@@ -37,9 +37,6 @@
       "unique": true,
       "regex": "^[a-z0-9_-]+$"
     },
-    "byline": {
-      "type": "string"
-    },
     "excerpt": {
       "type": "string",
       "minLength": 50,
