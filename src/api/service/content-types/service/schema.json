@@ -105,12 +105,6 @@
     "showcaseDescription": {
       "type": "richtext"
     },
-    "vendors": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::vendor.vendor",
-      "mappedBy": "services"
-    },
     "hero_light": {
       "type": "media",
       "multiple": false,
@@ -134,14 +128,14 @@
       ]
     },
     "lookbookCover": {
+      "type": "media",
+      "multiple": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "lookbooks": {
       "type": "relation",

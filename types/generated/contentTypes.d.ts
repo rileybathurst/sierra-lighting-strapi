@@ -1360,7 +1360,6 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    vendors: Schema.Attribute.Relation<'manyToMany', 'api::vendor.vendor'>;
     venues: Schema.Attribute.Relation<'manyToMany', 'api::venue.venue'>;
     videoMux: Schema.Attribute.String;
     videos: Schema.Attribute.Relation<'oneToMany', 'api::video.video'>;
@@ -1625,10 +1624,6 @@ export interface ApiVendorVendor extends Struct.CollectionTypeSchema {
     profile: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
-    service: Schema.Attribute.Enumeration<
-      ['photography', 'planning', 'production', 'floral']
-    >;
-    services: Schema.Attribute.Relation<'manyToMany', 'api::service.service'>;
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;

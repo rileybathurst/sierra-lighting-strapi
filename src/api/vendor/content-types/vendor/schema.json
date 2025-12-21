@@ -17,15 +17,6 @@
       "required": true,
       "unique": true
     },
-    "service": {
-      "type": "enumeration",
-      "enum": [
-        "photography",
-        "planning",
-        "production",
-        "floral"
-      ]
-    },
     "description": {
       "type": "text"
     },
@@ -43,9 +34,9 @@
     },
     "slug": {
       "type": "string",
+      "required": true,
       "unique": true,
-      "regex": "^[a-z0-9\\-]*$",
-      "required": true
+      "regex": "^[a-z0-9\\-]*$"
     },
     "profile": {
       "type": "media",
@@ -73,12 +64,6 @@
       "relation": "manyToMany",
       "target": "api::project.project",
       "mappedBy": "vendors"
-    },
-    "services": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::service.service",
-      "inversedBy": "vendors"
     },
     "lookbook": {
       "type": "relation",
