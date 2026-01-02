@@ -670,6 +670,7 @@ export interface ApiFeedbackFeedback extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    about: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -898,6 +899,9 @@ export interface ApiLightLight extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    commercialHero: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -932,6 +936,9 @@ export interface ApiLightLight extends Struct.CollectionTypeSchema {
     projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
     related: Schema.Attribute.Relation<'manyToOne', 'api::light.light'>;
+    residentialHero: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     services: Schema.Attribute.Relation<'manyToMany', 'api::service.service'>;
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1138,35 +1145,6 @@ export interface ApiProcessProcess extends Struct.CollectionTypeSchema {
     order: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Relation<'manyToMany', 'api::service.service'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiProjectDescriptionProjectDescription
-  extends Struct.SingleTypeSchema {
-  collectionName: 'project_descriptions';
-  info: {
-    displayName: 'project-description';
-    pluralName: 'project-descriptions';
-    singularName: 'project-description';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::project-description.project-description'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1980,8 +1958,8 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    alternativeText: Schema.Attribute.String;
-    caption: Schema.Attribute.String;
+    alternativeText: Schema.Attribute.Text;
+    caption: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2005,7 +1983,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     mime: Schema.Attribute.String & Schema.Attribute.Required;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    previewUrl: Schema.Attribute.String;
+    previewUrl: Schema.Attribute.Text;
     provider: Schema.Attribute.String & Schema.Attribute.Required;
     provider_metadata: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
@@ -2014,7 +1992,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
     width: Schema.Attribute.Integer;
   };
 }
@@ -2253,7 +2231,6 @@ declare module '@strapi/strapi' {
       'api::missing.missing': ApiMissingMissing;
       'api::plan.plan': ApiPlanPlan;
       'api::process.process': ApiProcessProcess;
-      'api::project-description.project-description': ApiProjectDescriptionProjectDescription;
       'api::project.project': ApiProjectProject;
       'api::quality.quality': ApiQualityQuality;
       'api::season.season': ApiSeasonSeason;

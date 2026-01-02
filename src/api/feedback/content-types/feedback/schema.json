@@ -19,6 +19,9 @@
     },
     "negative": {
       "type": "text"
+    },
+    "about": {
+      "type": "text"
     }
   }
 }
