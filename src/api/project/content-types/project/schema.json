@@ -115,6 +115,15 @@
       "relation": "manyToOne",
       "target": "api::area.area",
       "inversedBy": "projects"
+    },
+    "couple": {
+      "type": "string"
+    },
+    "project_single_use_links": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project-single-use-link.project-single-use-link",
+      "mappedBy": "projects"
     }
   }
 }

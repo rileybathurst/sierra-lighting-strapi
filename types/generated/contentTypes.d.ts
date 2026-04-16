@@ -929,6 +929,7 @@ export interface ApiLightLight extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::lookbook.lookbook'
     >;
+    markdown: Schema.Attribute.RichText;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
@@ -1151,6 +1152,39 @@ export interface ApiProcessProcess extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProjectSingleUseLinkProjectSingleUseLink
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'project_single_use_links';
+  info: {
+    displayName: 'project single use link';
+    pluralName: 'project-single-use-links';
+    singularName: 'project-single-use-link';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    link: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::project-single-use-link.project-single-use-link'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
+    publishedAt: Schema.Attribute.DateTime;
+    service: Schema.Attribute.String;
+    service_link: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   collectionName: 'projects';
   info: {
@@ -1164,6 +1198,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   };
   attributes: {
     area: Schema.Attribute.Relation<'manyToOne', 'api::area.area'>;
+    couple: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1188,6 +1223,10 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     ogimage: Schema.Attribute.String;
+    project_single_use_links: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::project-single-use-link.project-single-use-link'
+    >;
     projected: Schema.Attribute.Relation<'oneToOne', 'api::showcase.showcase'>;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Relation<'manyToMany', 'api::service.service'>;
@@ -1239,6 +1278,36 @@ export interface ApiQualityQuality extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSafetySafety extends Struct.SingleTypeSchema {
+  collectionName: 'safeties';
+  info: {
+    displayName: 'safety';
+    pluralName: 'safeties';
+    singularName: 'safety';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    excerpt: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::safety.safety'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSeasonSeason extends Struct.SingleTypeSchema {
   collectionName: 'seasons';
   info: {
@@ -1264,9 +1333,6 @@ export interface ApiSeasonSeason extends Struct.SingleTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    wedding: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<false>;
   };
 }
 
@@ -1501,6 +1567,36 @@ export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiThemeTheme extends Struct.CollectionTypeSchema {
+  collectionName: 'themes';
+  info: {
+    displayName: 'theme';
+    pluralName: 'themes';
+    singularName: 'theme';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    excerpt: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+        minLength: 50;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::theme.theme'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTopbarTopbar extends Struct.SingleTypeSchema {
   collectionName: 'topbars';
   info: {
@@ -1581,6 +1677,7 @@ export interface ApiVendorVendor extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::collaborator.collaborator'
     >;
+    collaboratorAncillary: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1964,6 +2061,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     ext: Schema.Attribute.String;
+    focalPoint: Schema.Attribute.JSON;
     folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
       Schema.Attribute.Private;
     folderPath: Schema.Attribute.String &
@@ -2231,14 +2329,17 @@ declare module '@strapi/strapi' {
       'api::missing.missing': ApiMissingMissing;
       'api::plan.plan': ApiPlanPlan;
       'api::process.process': ApiProcessProcess;
+      'api::project-single-use-link.project-single-use-link': ApiProjectSingleUseLinkProjectSingleUseLink;
       'api::project.project': ApiProjectProject;
       'api::quality.quality': ApiQualityQuality;
+      'api::safety.safety': ApiSafetySafety;
       'api::season.season': ApiSeasonSeason;
       'api::service.service': ApiServiceService;
       'api::showcase.showcase': ApiShowcaseShowcase;
       'api::takedownday.takedownday': ApiTakedowndayTakedownday;
       'api::team.team': ApiTeamTeam;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
+      'api::theme.theme': ApiThemeTheme;
       'api::topbar.topbar': ApiTopbarTopbar;
       'api::vendor-description.vendor-description': ApiVendorDescriptionVendorDescription;
       'api::vendor.vendor': ApiVendorVendor;

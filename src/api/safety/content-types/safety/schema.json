@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "safeties",
+  "info": {
+    "singularName": "safety",
+    "pluralName": "safeties",
+    "displayName": "safety"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "excerpt": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

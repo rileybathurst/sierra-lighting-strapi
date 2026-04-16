@@ -138,6 +138,9 @@
         "videos",
         "audios"
       ]
+    },
+    "markdown": {
+      "type": "richtext"
     }
   }
 }
