@@ -141,6 +141,12 @@
     },
     "markdown": {
       "type": "richtext"
+    },
+    "video": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::video.video",
+      "inversedBy": "lights"
     }
   }
 }

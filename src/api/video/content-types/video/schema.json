@@ -29,6 +29,18 @@
     },
     "thumbnailTime": {
       "type": "integer"
+    },
+    "lights": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::light.light",
+      "mappedBy": "video"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::project.project",
+      "mappedBy": "video"
     }
   }
 }

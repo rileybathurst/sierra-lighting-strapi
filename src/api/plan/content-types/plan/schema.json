@@ -30,32 +30,14 @@
     "notes": {
       "type": "richtext"
     },
-    "teams": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::team.team",
-      "mappedBy": "plan"
-    },
     "jobber": {
       "type": "integer",
       "unique": true
-    },
-    "takedownFlexOrder": {
-      "type": "integer"
     },
     "areas": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::area.area",
-      "inversedBy": "plans"
-    },
-    "jobbertakedown": {
-      "type": "integer"
-    },
-    "takedownday": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::takedownday.takedownday",
       "inversedBy": "plans"
     },
     "zip": {
@@ -69,6 +51,18 @@
     },
     "basicNotes": {
       "type": "text"
+    },
+    "relatedPlans": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::plan.plan",
+      "inversedBy": "plans"
+    },
+    "plans": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::plan.plan",
+      "mappedBy": "relatedPlans"
     }
   }
 }

@@ -586,6 +586,9 @@ export interface ApiAreaArea extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     venues: Schema.Attribute.Relation<'oneToMany', 'api::venue.venue'>;
+    weddingImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
   };
 }
 
@@ -947,6 +950,7 @@ export interface ApiLightLight extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    video: Schema.Attribute.Relation<'manyToOne', 'api::video.video'>;
     weddingOrder: Schema.Attribute.Integer;
     xmasOrder: Schema.Attribute.Integer;
   };
@@ -1096,21 +1100,16 @@ export interface ApiPlanPlan extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     jobber: Schema.Attribute.Integer & Schema.Attribute.Unique;
-    jobbertakedown: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::plan.plan'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     notes: Schema.Attribute.RichText;
+    plans: Schema.Attribute.Relation<'manyToMany', 'api::plan.plan'>;
     publishedAt: Schema.Attribute.DateTime;
+    relatedPlans: Schema.Attribute.Relation<'manyToMany', 'api::plan.plan'>;
     slug: Schema.Attribute.String & Schema.Attribute.Unique;
     svg: Schema.Attribute.Text;
-    takedownday: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::takedownday.takedownday'
-    >;
-    takedownFlexOrder: Schema.Attribute.Integer;
-    teams: Schema.Attribute.Relation<'oneToMany', 'api::team.team'>;
     timerFallback: Schema.Attribute.String;
     timerHours: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
@@ -1244,6 +1243,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     vendors: Schema.Attribute.Relation<'manyToMany', 'api::vendor.vendor'>;
     venue: Schema.Attribute.Relation<'manyToOne', 'api::venue.venue'>;
+    video: Schema.Attribute.Relation<'oneToOne', 'api::video.video'>;
   };
 }
 
@@ -1445,37 +1445,6 @@ export interface ApiShowcaseShowcase extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiTakedowndayTakedownday extends Struct.CollectionTypeSchema {
-  collectionName: 'takedowndays';
-  info: {
-    description: '';
-    displayName: 'takedownday';
-    pluralName: 'takedowndays';
-    singularName: 'takedownday';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    crew: Schema.Attribute.Enumeration<['dani', 'alex', 'andrew']>;
-    date: Schema.Attribute.Date;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::takedownday.takedownday'
-    > &
-      Schema.Attribute.Private;
-    plans: Schema.Attribute.Relation<'oneToMany', 'api::plan.plan'>;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
   collectionName: 'teams';
   info: {
@@ -1500,7 +1469,6 @@ export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    plan: Schema.Attribute.Relation<'manyToOne', 'api::plan.plan'>;
     projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.String &
@@ -1784,11 +1752,13 @@ export interface ApiVideoVideo extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    lights: Schema.Attribute.Relation<'oneToMany', 'api::light.light'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::video.video'> &
       Schema.Attribute.Private;
     mux: Schema.Attribute.String;
     name: Schema.Attribute.String;
+    project: Schema.Attribute.Relation<'oneToOne', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
     service: Schema.Attribute.Relation<'manyToOne', 'api::service.service'>;
     thumbnailTime: Schema.Attribute.Integer;
@@ -2336,7 +2306,6 @@ declare module '@strapi/strapi' {
       'api::season.season': ApiSeasonSeason;
       'api::service.service': ApiServiceService;
       'api::showcase.showcase': ApiShowcaseShowcase;
-      'api::takedownday.takedownday': ApiTakedowndayTakedownday;
       'api::team.team': ApiTeamTeam;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::theme.theme': ApiThemeTheme;

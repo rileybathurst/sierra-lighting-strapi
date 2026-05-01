@@ -44,8 +44,8 @@
     "slug": {
       "type": "string",
       "required": true,
-      "regex": "^[a-z0-9\\-]*$",
-      "unique": true
+      "unique": true,
+      "regex": "^[a-z0-9\\-]*$"
     },
     "projects": {
       "type": "relation",
@@ -91,6 +91,16 @@
     },
     "postalCode": {
       "type": "integer"
+    },
+    "weddingImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

@@ -124,6 +124,12 @@
       "relation": "manyToMany",
       "target": "api::project-single-use-link.project-single-use-link",
       "mappedBy": "projects"
+    },
+    "video": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::video.video",
+      "inversedBy": "project"
     }
   }
 }
