@@ -79,6 +79,11 @@
     },
     "collaboratorAncillary": {
       "type": "string"
+    },
+    "social": {
+      "type": "component",
+      "component": "shared.socials",
+      "repeatable": true
     }
   }
 }

@@ -453,33 +453,26 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     defaultImageAlt: Schema.Attribute.String;
     description: Schema.Attribute.RichText;
     email: Schema.Attribute.String;
-    facebook: Schema.Attribute.String;
     geoLatitude: Schema.Attribute.Decimal;
     geoLongitude: Schema.Attribute.Decimal;
     geoRadius: Schema.Attribute.Integer;
-    google: Schema.Attribute.String;
     googleReviews: Schema.Attribute.String;
-    instagram: Schema.Attribute.String;
     itemType: Schema.Attribute.String;
-    linkedin: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
       Schema.Attribute.Private;
-    nextdoor: Schema.Attribute.String;
     openingHours: Schema.Attribute.String;
     paymentAccepted: Schema.Attribute.String;
-    pinterest: Schema.Attribute.String;
     postalCode: Schema.Attribute.String;
     priceRange: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     slogan: Schema.Attribute.String;
+    social: Schema.Attribute.Component<'shared.socials', true>;
     telephone: Schema.Attribute.String;
-    tiktok: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     url: Schema.Attribute.String;
-    yelp: Schema.Attribute.String;
   };
 }
 
@@ -589,6 +582,38 @@ export interface ApiAreaArea extends Struct.CollectionTypeSchema {
     weddingImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
+  };
+}
+
+export interface ApiBulbBulb extends Struct.CollectionTypeSchema {
+  collectionName: 'bulbs';
+  info: {
+    displayName: 'bulb';
+    pluralName: 'bulbs';
+    singularName: 'bulb';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    detail: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    excerpt: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+        minLength: 50;
+      }>;
+    lights: Schema.Attribute.Relation<'manyToMany', 'api::light.light'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::bulb.bulb'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -902,6 +927,7 @@ export interface ApiLightLight extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    bulbs: Schema.Attribute.Relation<'manyToMany', 'api::bulb.bulb'>;
     commercialHero: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
@@ -1237,6 +1263,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::testimonial.testimonial'
     >;
+    themes: Schema.Attribute.Relation<'manyToMany', 'api::theme.theme'>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1445,6 +1472,64 @@ export interface ApiShowcaseShowcase extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSiteSite extends Struct.CollectionTypeSchema {
+  collectionName: 'sites';
+  info: {
+    displayName: 'site';
+    pluralName: 'sites';
+    singularName: 'site';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    link: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::site.site'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    service: Schema.Attribute.String;
+    svg: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSocialSiteSocialSite extends Struct.CollectionTypeSchema {
+  collectionName: 'social_sites';
+  info: {
+    displayName: 'social-site';
+    pluralName: 'social-sites';
+    singularName: 'social-site';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    link: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::social-site.social-site'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    service: Schema.Attribute.String;
+    svg: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
   collectionName: 'teams';
   info: {
@@ -1557,7 +1642,11 @@ export interface ApiThemeTheme extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::theme.theme'> &
       Schema.Attribute.Private;
+    projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1670,6 +1759,7 @@ export interface ApiVendorVendor extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    social: Schema.Attribute.Component<'shared.socials', true>;
     testimonials: Schema.Attribute.Relation<
       'oneToMany',
       'api::testimonial.testimonial'
@@ -1720,6 +1810,7 @@ export interface ApiVenueVenue extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    socials: Schema.Attribute.Component<'shared.socials', true>;
     streetAddress: Schema.Attribute.String;
     testimonials: Schema.Attribute.Relation<
       'oneToMany',
@@ -2283,6 +2374,7 @@ declare module '@strapi/strapi' {
       'api::affiliation.affiliation': ApiAffiliationAffiliation;
       'api::area-exploratrion.area-exploratrion': ApiAreaExploratrionAreaExploratrion;
       'api::area.area': ApiAreaArea;
+      'api::bulb.bulb': ApiBulbBulb;
       'api::collaborator.collaborator': ApiCollaboratorCollaborator;
       'api::far.far': ApiFarFar;
       'api::feedback.feedback': ApiFeedbackFeedback;
@@ -2306,6 +2398,8 @@ declare module '@strapi/strapi' {
       'api::season.season': ApiSeasonSeason;
       'api::service.service': ApiServiceService;
       'api::showcase.showcase': ApiShowcaseShowcase;
+      'api::site.site': ApiSiteSite;
+      'api::social-site.social-site': ApiSocialSiteSocialSite;
       'api::team.team': ApiTeamTeam;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::theme.theme': ApiThemeTheme;

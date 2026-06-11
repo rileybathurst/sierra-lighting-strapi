@@ -94,6 +94,11 @@
     },
     "postalCode": {
       "type": "string"
+    },
+    "socials": {
+      "type": "component",
+      "component": "shared.socials",
+      "repeatable": true
     }
   }
 }

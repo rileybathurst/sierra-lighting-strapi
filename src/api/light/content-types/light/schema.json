@@ -147,6 +147,12 @@
       "relation": "manyToOne",
       "target": "api::video.video",
       "inversedBy": "lights"
+    },
+    "bulbs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::bulb.bulb",
+      "inversedBy": "lights"
     }
   }
 }

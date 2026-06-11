@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bulbs",
+  "info": {
+    "singularName": "bulb",
+    "pluralName": "bulbs",
+    "displayName": "bulb"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 160
+    },
+    "detail": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "lights": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::light.light",
+      "mappedBy": "bulbs"
+    }
+  }
+}

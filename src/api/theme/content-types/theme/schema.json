@@ -18,6 +18,18 @@
       "type": "string",
       "minLength": 50,
       "maxLength": 160
+    },
+    "projects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project.project",
+      "mappedBy": "themes"
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "regex": "^[a-z0-9_-]+$"
     }
   }
 }
