@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "works",
+  "info": {
+    "singularName": "work",
+    "pluralName": "works",
+    "displayName": "work"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "excerpt": {
+      "type": "string"
+    },
+    "sites": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::site.site"
+    },
+    "hero": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

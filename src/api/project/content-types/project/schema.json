@@ -52,9 +52,6 @@
       "minLength": 50,
       "maxLength": 160
     },
-    "ogimage": {
-      "type": "string"
-    },
     "venue": {
       "type": "relation",
       "relation": "manyToOne",
@@ -77,9 +74,6 @@
         "videos",
         "audios"
       ]
-    },
-    "hero": {
-      "type": "boolean"
     },
     "services": {
       "type": "relation",

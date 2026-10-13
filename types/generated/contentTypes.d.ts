@@ -26,6 +26,11 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
+    adminPermissions: Schema.Attribute.Relation<
+      'oneToMany',
+      'admin::permission'
+    >;
+    adminUserOwner: Schema.Attribute.Relation<'manyToOne', 'admin::user'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -39,6 +44,9 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
         minLength: 1;
       }>;
     expiresAt: Schema.Attribute.DateTime;
+    kind: Schema.Attribute.Enumeration<['content-api', 'admin']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'content-api'>;
     lastUsedAt: Schema.Attribute.DateTime;
     lifespan: Schema.Attribute.BigInteger;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -56,7 +64,6 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
     >;
     publishedAt: Schema.Attribute.DateTime;
     type: Schema.Attribute.Enumeration<['read-only', 'full-access', 'custom']> &
-      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'read-only'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -134,6 +141,7 @@ export interface AdminPermission extends Struct.CollectionTypeSchema {
         minLength: 1;
       }>;
     actionParameters: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<{}>;
+    apiToken: Schema.Attribute.Relation<'manyToOne', 'admin::api-token'>;
     conditions: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -241,6 +249,7 @@ export interface AdminSession extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'admin::session'> &
       Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     origin: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Private;
@@ -385,6 +394,8 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    apiTokens: Schema.Attribute.Relation<'oneToMany', 'admin::api-token'> &
+      Schema.Attribute.Private;
     blocked: Schema.Attribute.Boolean &
       Schema.Attribute.Private &
       Schema.Attribute.DefaultTo<false>;
@@ -421,6 +432,8 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     registrationToken: Schema.Attribute.String & Schema.Attribute.Private;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    resetPasswordTokenExpiresAt: Schema.Attribute.DateTime &
+      Schema.Attribute.Private;
     roles: Schema.Attribute.Relation<'manyToMany', 'admin::role'> &
       Schema.Attribute.Private;
     updatedAt: Schema.Attribute.DateTime;
@@ -449,8 +462,6 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    defaultImage: Schema.Attribute.String;
-    defaultImageAlt: Schema.Attribute.String;
     description: Schema.Attribute.RichText;
     email: Schema.Attribute.String;
     geoLatitude: Schema.Attribute.Decimal;
@@ -461,6 +472,7 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
       Schema.Attribute.Private;
+    monitored: Schema.Attribute.String;
     openingHours: Schema.Attribute.String;
     paymentAccepted: Schema.Attribute.String;
     postalCode: Schema.Attribute.String;
@@ -554,7 +566,6 @@ export interface ApiAreaArea extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.RichText;
     excerpt: Schema.Attribute.Text;
     featured: Schema.Attribute.Boolean;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
@@ -579,9 +590,11 @@ export interface ApiAreaArea extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     venues: Schema.Attribute.Relation<'oneToMany', 'api::venue.venue'>;
+    weddingDescription: Schema.Attribute.RichText;
     weddingImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
+    xmasDescription: Schema.Attribute.RichText;
   };
 }
 
@@ -660,6 +673,37 @@ export interface ApiCollaboratorCollaborator
   };
 }
 
+export interface ApiErrorError extends Struct.SingleTypeSchema {
+  collectionName: 'errors';
+  info: {
+    displayName: 'error';
+    pluralName: 'errors';
+    singularName: 'error';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::error.error'> &
+      Schema.Attribute.Private;
+    missingCard: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    pun: Schema.Attribute.String;
+    return: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFarFar extends Struct.CollectionTypeSchema {
   collectionName: 'fars';
   info: {
@@ -712,6 +756,40 @@ export interface ApiFeedbackFeedback extends Struct.SingleTypeSchema {
     positive: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
     starting: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFormForm extends Struct.SingleTypeSchema {
+  collectionName: 'forms';
+  info: {
+    displayName: 'form';
+    pluralName: 'forms';
+    singularName: 'form';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    addressLink: Schema.Attribute.String;
+    closing: Schema.Attribute.Time;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    days: Schema.Attribute.Component<'shared.days', false>;
+    hero: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::form.form'> &
+      Schema.Attribute.Private;
+    minimum: Schema.Attribute.String;
+    monitoring: Schema.Attribute.String;
+    opening: Schema.Attribute.Time;
+    outsideHours: Schema.Attribute.String;
+    profanity: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    thanks: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1107,6 +1185,35 @@ export interface ApiMissingMissing extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiPermanentPermanent extends Struct.SingleTypeSchema {
+  collectionName: 'permanents';
+  info: {
+    displayName: 'permanent';
+    pluralName: 'permanents';
+    singularName: 'permanent';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    excerpt: Schema.Attribute.String;
+    explanation: Schema.Attribute.RichText;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::permanent.permanent'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPlanPlan extends Struct.CollectionTypeSchema {
   collectionName: 'plans';
   info: {
@@ -1142,6 +1249,34 @@ export interface ApiPlanPlan extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     zip: Schema.Attribute.Integer;
+  };
+}
+
+export interface ApiPrivacyPrivacy extends Struct.SingleTypeSchema {
+  collectionName: 'privacies';
+  info: {
+    displayName: 'privacy';
+    pluralName: 'privacies';
+    singularName: 'privacy';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::privacy.privacy'
+    > &
+      Schema.Attribute.Private;
+    policy: Schema.Attribute.RichText;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1238,7 +1373,6 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    hero: Schema.Attribute.Boolean;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     lights: Schema.Attribute.Relation<'manyToMany', 'api::light.light'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1247,7 +1381,6 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       'api::project.project'
     > &
       Schema.Attribute.Private;
-    ogimage: Schema.Attribute.String;
     project_single_use_links: Schema.Attribute.Relation<
       'manyToMany',
       'api::project-single-use-link.project-single-use-link'
@@ -1486,14 +1619,14 @@ export interface ApiSiteSite extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<'global::inline-svg'>;
     link: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::site.site'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     service: Schema.Attribute.String;
-    svg: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1853,6 +1986,33 @@ export interface ApiVideoVideo extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     service: Schema.Attribute.Relation<'manyToOne', 'api::service.service'>;
     thumbnailTime: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWorkWork extends Struct.SingleTypeSchema {
+  collectionName: 'works';
+  info: {
+    displayName: 'work';
+    pluralName: 'works';
+    singularName: 'work';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    excerpt: Schema.Attribute.String;
+    hero: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::work.work'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sites: Schema.Attribute.Relation<'oneToMany', 'api::site.site'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2360,7 +2520,7 @@ export interface PluginUsersPermissionsUser
 }
 
 declare module '@strapi/strapi' {
-  export module Public {
+  export namespace Public {
     export interface ContentTypeSchemas {
       'admin::api-token': AdminApiToken;
       'admin::api-token-permission': AdminApiTokenPermission;
@@ -2376,8 +2536,10 @@ declare module '@strapi/strapi' {
       'api::area.area': ApiAreaArea;
       'api::bulb.bulb': ApiBulbBulb;
       'api::collaborator.collaborator': ApiCollaboratorCollaborator;
+      'api::error.error': ApiErrorError;
       'api::far.far': ApiFarFar;
       'api::feedback.feedback': ApiFeedbackFeedback;
+      'api::form.form': ApiFormForm;
       'api::hero.hero': ApiHeroHero;
       'api::image-grab.image-grab': ApiImageGrabImageGrab;
       'api::job.job': ApiJobJob;
@@ -2389,7 +2551,9 @@ declare module '@strapi/strapi' {
       'api::lookbook.lookbook': ApiLookbookLookbook;
       'api::minimum.minimum': ApiMinimumMinimum;
       'api::missing.missing': ApiMissingMissing;
+      'api::permanent.permanent': ApiPermanentPermanent;
       'api::plan.plan': ApiPlanPlan;
+      'api::privacy.privacy': ApiPrivacyPrivacy;
       'api::process.process': ApiProcessProcess;
       'api::project-single-use-link.project-single-use-link': ApiProjectSingleUseLinkProjectSingleUseLink;
       'api::project.project': ApiProjectProject;
@@ -2408,6 +2572,7 @@ declare module '@strapi/strapi' {
       'api::vendor.vendor': ApiVendorVendor;
       'api::venue.venue': ApiVenueVenue;
       'api::video.video': ApiVideoVideo;
+      'api::work.work': ApiWorkWork;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -17,18 +17,9 @@
     "link": {
       "type": "string"
     },
-    "svg": {
-      "type": "text"
-    },
     "icon": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "type": "customField",
+      "customField": "global::inline-svg"
     }
   }
 }

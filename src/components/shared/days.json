@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_shared_days",
+  "info": {
+    "displayName": "days"
+  },
+  "options": {},
+  "attributes": {
+    "monday": {
+      "type": "boolean"
+    },
+    "tuesday": {
+      "type": "boolean"
+    },
+    "wednesday": {
+      "type": "boolean"
+    },
+    "thursday": {
+      "type": "boolean"
+    },
+    "friday": {
+      "type": "boolean"
+    },
+    "saturday": {
+      "type": "boolean"
+    },
+    "sunday": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

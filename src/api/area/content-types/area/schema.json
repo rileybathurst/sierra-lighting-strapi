@@ -38,7 +38,7 @@
         "nevada"
       ]
     },
-    "description": {
+    "xmasDescription": {
       "type": "richtext"
     },
     "slug": {
@@ -101,6 +101,9 @@
         "videos",
         "audios"
       ]
+    },
+    "weddingDescription": {
+      "type": "richtext"
     }
   }
 }

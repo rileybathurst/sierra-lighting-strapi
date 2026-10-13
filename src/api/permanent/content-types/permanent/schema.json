@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "permanents",
+  "info": {
+    "singularName": "permanent",
+    "pluralName": "permanents",
+    "displayName": "permanent"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "explanation": {
+      "type": "richtext"
+    },
+    "excerpt": {
+      "type": "string"
+    }
+  }
+}

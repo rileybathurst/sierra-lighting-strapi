@@ -24,12 +24,6 @@
     "slogan": {
       "type": "string"
     },
-    "defaultImage": {
-      "type": "string"
-    },
-    "defaultImageAlt": {
-      "type": "string"
-    },
     "openingHours": {
       "type": "string"
     },
@@ -76,6 +70,9 @@
       "type": "component",
       "component": "shared.socials",
       "repeatable": true
+    },
+    "monitored": {
+      "type": "string"
     }
   }
 }
